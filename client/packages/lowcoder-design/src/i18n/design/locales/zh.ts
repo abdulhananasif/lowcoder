@@ -24,6 +24,7 @@ export const zh = {
       layout: "布局",
       labelStyle:"标签样式",
       style: "样式",
+      FieldStyle: "田野风格",
       meetings: "会议",
       data: "数据",
     },

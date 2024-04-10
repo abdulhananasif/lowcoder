@@ -335,6 +335,9 @@ let AutoCompleteCompBase = (function () {
             {hiddenPropertyView(children)}
           </Section>
 
+          <Section name={sectionNames.fieldStyle}>
+            {children.style.getPropertyView()}
+          </Section>
           <Section name={sectionNames.style}>
             {children.style.getPropertyView()}
           </Section>

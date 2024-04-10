@@ -24,6 +24,7 @@ export const en = {
     layout: "Layout",
     labelStyle:"Label Style",
     style: "Style",
+    fieldStyle: "Field Style",
     meetings : "Meeting Settings",
     data: "Data",
   },

@@ -145,6 +145,7 @@ export const sectionNames = {
   validation: trans("prop.validation"),
   layout: trans("prop.layout"),
   style: trans("prop.style"),
+  fieldStyle: trans("prop.fieldStyle"),
   labelStyle:trans("prop.labelStyle"),
   data: trans("prop.data"),
   meetings : trans("prop.meetings"), // added by Falk Wolsky
