@@ -28,6 +28,7 @@ type LabelViewProps = Pick<
   children: ReactNode;
   style?: Record<string, string>;
   labelStyle?: Record<string, string>;
+  field?: Record<string, string>;
 };
 
 const StyledStarIcon = styled(StarIcon)`
@@ -178,100 +179,105 @@ export const LabelControl = (function () {
 
   return new MultiCompBuilder(
     childrenMap,
-    (props) => (args: LabelViewProps) => (
-      <LabelViewWrapper $style={args.style}>
-        <MainWrapper
-          $position={props.position}
-          $hasLabel={!!props.text}
-          style={{
-            margin: args && args.style ? args?.style?.margin : 0,
-            // padding: args && args.style ? args?.style?.padding : 0,
-            width: widthCalculator(
-              args && args.style ? args?.style?.margin : '0px'
-            ),
-            height: heightCalculator(
-              args && args.style ? args?.style?.margin : '0px'
-            ),
-          }}
-        >
-          {!props.hidden && !isEmpty(props.text) && (
-            <LabelWrapper
-              $align={props.align}
+    (props) => (args: LabelViewProps) => {
+      console.log('🚀 ~ LabelControl ~ args:', args);
+      return (
+        <LabelViewWrapper $style={args.field}>
+          <MainWrapper
+            $position={props.position}
+            $hasLabel={!!props.text}
+            style={{
+              margin: args && args.style ? args?.style?.margin : 0,
+              // padding: args && args.style ? args?.style?.padding : 0,
+              width: widthCalculator(
+                args && args.style ? args?.style?.margin : '0px'
+              ),
+              height: heightCalculator(
+                args && args.style ? args?.style?.margin : '0px'
+              ),
+            }}
+          >
+            {!props.hidden && !isEmpty(props.text) && (
+              <LabelWrapper
+                $align={props.align}
+                style={{
+                  width:
+                    props.position === 'row'
+                      ? getLabelWidth(props.width, props.widthUnit)
+                      : '100%',
+                  maxWidth: props.position === 'row' ? '70%' : '100%',
+                  fontSize: args && args.style ? args?.style?.textSize : '14px',
+                }}
+                $position={props.position}
+                $hasToolTip={!!props.tooltip}
+              >
+                <Tooltip
+                  title={
+                    props.tooltip && (
+                      <TooltipWrapper>{props.tooltip}</TooltipWrapper>
+                    )
+                  }
+                  arrow={{
+                    pointAtCenter: true,
+                  }}
+                  placement="top"
+                  color="#2c2c2c"
+                  getPopupContainer={(node: any) =>
+                    node.closest('.react-grid-item')
+                  }
+                >
+                  <Label
+                    $border={!!props.tooltip}
+                    $validateStatus={
+                      args && args.validateStatus ? args.validateStatus : null
+                    }
+                    $labelStyle={{...args.labelStyle}}
+                  >
+                    {props.text}
+                  </Label>
+                </Tooltip>
+                {args.required && <StyledStarIcon />}
+              </LabelWrapper>
+            )}
+            <ChildrenWrapper
               style={{
                 width:
                   props.position === 'row'
-                    ? getLabelWidth(props.width, props.widthUnit)
+                    ? `calc(100% - ${getLabelWidth(props.width, props.widthUnit)} - 8px)`
                     : '100%',
-                maxWidth: props.position === 'row' ? '70%' : '100%',
-                fontSize: args && args.style ? args?.style?.textSize : '14px',
+                height:
+                  props.position === 'column' && !!props.text
+                    ? 'calc(100% - 22px)'
+                    : '100%',
               }}
-              $position={props.position}
-              $hasToolTip={!!props.tooltip}
             >
-              <Tooltip
-                title={
-                  props.tooltip && (
-                    <TooltipWrapper>{props.tooltip}</TooltipWrapper>
-                  )
-                }
-                arrow={{
-                  pointAtCenter: true,
-                }}
-                placement="top"
-                color="#2c2c2c"
-                getPopupContainer={(node: any) =>
-                  node.closest('.react-grid-item')
-                }
-              >
-                <Label
-                  $border={!!props.tooltip}
-                  $validateStatus={
-                    args && args.validateStatus ? args.validateStatus : null
-                  }
-                  $labelStyle={{...args.labelStyle}}
-                >
-                  {props.text}
-                </Label>
-              </Tooltip>
-              {args.required && <StyledStarIcon />}
-            </LabelWrapper>
-          )}
-          <ChildrenWrapper
-            style={{
-              width:
-                props.position === 'row'
-                  ? `calc(100% - ${getLabelWidth(props.width, props.widthUnit)} - 8px)`
-                  : '100%',
-              height:
-                props.position === 'column' && !!props.text
-                  ? 'calc(100% - 22px)'
-                  : '100%',
-            }}
-          >
-            {args.children}
-          </ChildrenWrapper>
-        </MainWrapper>
+              {args.children}
+            </ChildrenWrapper>
+          </MainWrapper>
 
-        {args.help && (
-          <HelpWrapper
-            $marginLeft={
-              props.position === 'column' || isEmpty(props.text) || props.hidden
-                ? '0'
-                : `calc(min(${getLabelWidth(props.width, props.widthUnit)} , 70%) + 8px)`
-            }
-            $color={
-              args.validateStatus === 'error'
-                ? red.primary
-                : args.validateStatus === 'warning'
-                  ? yellow.primary
-                  : green.primary
-            }
-          >
-            {args.help}
-          </HelpWrapper>
-        )}
-      </LabelViewWrapper>
-    )
+          {args.help && (
+            <HelpWrapper
+              $marginLeft={
+                props.position === 'column' ||
+                isEmpty(props.text) ||
+                props.hidden
+                  ? '0'
+                  : `calc(min(${getLabelWidth(props.width, props.widthUnit)} , 70%) + 8px)`
+              }
+              $color={
+                args.validateStatus === 'error'
+                  ? red.primary
+                  : args.validateStatus === 'warning'
+                    ? yellow.primary
+                    : green.primary
+              }
+            >
+              {args.help}
+            </HelpWrapper>
+          )}
+        </LabelViewWrapper>
+      );
+    }
   )
     .setPropertyViewFn((children) => (
       <Section name={trans('label')}>
