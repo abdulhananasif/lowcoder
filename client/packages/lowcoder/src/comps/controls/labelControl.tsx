@@ -51,10 +51,12 @@ function getStyle(style: any) {
 
 const LabelViewWrapper = styled.div<{$style: any; field: any}>`
   ${(props) => {
-    return {
-      ...props.field,
-      borderRadius: props.field.radius,
-    };
+    return (
+      props.field && {
+        ...props.field,
+        borderRadius: props.field.radius,
+      }
+    );
   }}
   ${(props) => {
     return props.$style && getStyle(props.$style);
