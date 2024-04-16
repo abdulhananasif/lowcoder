@@ -49,8 +49,13 @@ function getStyle(style: any) {
   `;
 }
 
-const LabelViewWrapper = styled.div<{$style: any}>`
-  ${(props) => props.$style && getStyle(props.$style)}
+const LabelViewWrapper = styled.div<{$style: any; field: any}>`
+  ${(props) => {
+    return props.field;
+  }}
+  ${(props) => {
+    return props.$style && getStyle(props.$style);
+  }}
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -180,9 +185,8 @@ export const LabelControl = (function () {
   return new MultiCompBuilder(
     childrenMap,
     (props) => (args: LabelViewProps) => {
-      console.log('🚀 ~ LabelControl ~ args:', args);
       return (
-        <LabelViewWrapper $style={args.field}>
+        <LabelViewWrapper $style={args.style} field={args.field}>
           <MainWrapper
             $position={props.position}
             $hasLabel={!!props.text}
