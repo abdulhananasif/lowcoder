@@ -1,17 +1,25 @@
-import { default as Cascader } from "antd/es/cascader";
-import { CascaderStyleType } from "comps/controls/styleControlConstants";
-import { blurMethod, focusMethod } from "comps/utils/methodUtils";
-import { trans } from "i18n";
-import styled from "styled-components";
-import { UICompBuilder, withDefault } from "../../generators";
-import { CommonNameConfig, NameConfig, withExposingConfigs } from "../../generators/withExposing";
-import { CascaderChildren, CascaderPropertyView, defaultDataSource } from "./cascaderContants";
-import { getStyle } from "./selectCompConstants";
-import { refMethods } from "comps/generators/withMethodExposing";
+import {default as Cascader} from 'antd/es/cascader';
+import {CascaderStyleType} from 'comps/controls/styleControlConstants';
+import {blurMethod, focusMethod} from 'comps/utils/methodUtils';
+import {trans} from 'i18n';
+import styled from 'styled-components';
+import {UICompBuilder, withDefault} from '../../generators';
+import {
+  CommonNameConfig,
+  NameConfig,
+  withExposingConfigs,
+} from '../../generators/withExposing';
+import {
+  CascaderChildren,
+  CascaderPropertyView,
+  defaultDataSource,
+} from './cascaderContants';
+import {getStyle} from './selectCompConstants';
+import {refMethods} from 'comps/generators/withMethodExposing';
 
-const CascaderStyle = styled(Cascader)<{ $style: CascaderStyleType }>`
+const CascaderStyle = styled(Cascader)<{$style: CascaderStyleType}>`
   width: 100%;
-  font-family:"Montserrat";
+  font-family: 'Montserrat';
   ${(props) => props.$style && getStyle(props.$style)}
 `;
 
@@ -21,7 +29,7 @@ let CascaderBasicComp = (function () {
   return new UICompBuilder(childrenMap, (props) => {
     return props.label({
       style: props.style,
-      labelStyle:props.labelStyle,
+      labelStyle: props.labelStyle,
       children: (
         <CascaderStyle
           ref={props.viewRef}
@@ -33,14 +41,15 @@ let CascaderBasicComp = (function () {
           placeholder={props.placeholder}
           showSearch={props.showSearch}
           $style={props.style}
-          onFocus={() => props.onEvent("focus")}
-          onBlur={() => props.onEvent("blur")}
+          onFocus={() => props.onEvent('focus')}
+          onBlur={() => props.onEvent('blur')}
           onChange={(value: (string | number)[]) => {
             props.value.onChange(value as string[]);
-            props.onEvent("change");
+            props.onEvent('change');
           }}
         />
       ),
+      field: props.field,
     });
   })
     .setPropertyViewFn((children) => (
@@ -53,7 +62,7 @@ let CascaderBasicComp = (function () {
 })();
 
 const CascaderComp = withExposingConfigs(CascaderBasicComp, [
-  new NameConfig("value", trans("selectInput.valueDesc")),
+  new NameConfig('value', trans('selectInput.valueDesc')),
   ...CommonNameConfig,
 ]);
 
