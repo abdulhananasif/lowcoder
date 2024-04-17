@@ -124,6 +124,7 @@ let RadioBasicComp = (function () {
             }))}
         />
       ),
+      field:props.field,
       ...validateState,
     });
   })
