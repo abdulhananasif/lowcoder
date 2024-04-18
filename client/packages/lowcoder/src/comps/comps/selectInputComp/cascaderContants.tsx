@@ -12,7 +12,7 @@ import {LabelControl} from 'comps/controls/labelControl';
 import {styleControl} from 'comps/controls/styleControl';
 import {
   CascaderStyle,
-  FieldStyle,
+  ComponentStyle,
   LabelStyle,
 } from 'comps/controls/styleControlConstants';
 import {
@@ -52,7 +52,7 @@ export const CascaderChildren = {
   viewRef: RefControl<CascaderRef>,
   margin: MarginControl,
   padding: PaddingControl,
-  field: styleControl(FieldStyle),
+  field: styleControl(ComponentStyle),
 };
 
 export const CascaderPropertyView = (
