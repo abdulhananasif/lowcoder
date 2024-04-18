@@ -899,7 +899,7 @@ export const InputLikeStyle = [
   ...ACCENT_VALIDATE,
 ] as const;
 
-export const FieldStyle = [
+export const ComponentStyle = [
   getStaticBackground(SURFACE_COLOR),
   ...STYLING_FIELDS_CONTAINER_SEQUENCE,
 ] as const;
@@ -1601,7 +1601,7 @@ export const RichTextEditorStyle = [
 ] as const;
 
 export type LabelStyleType = StyleConfigType<typeof LabelStyle>;
-export type FieldStyleType = StyleConfigType<typeof FieldStyle>;
+export type ComponentStyleType = StyleConfigType<typeof ComponentStyle>;
 export type InputLikeStyleType = StyleConfigType<typeof InputLikeStyle>;
 export type ButtonStyleType = StyleConfigType<typeof ButtonStyle>;
 export type ToggleButtonStyleType = StyleConfigType<typeof ToggleButtonStyle>;
