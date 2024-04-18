@@ -3,7 +3,7 @@ import {Input, Section, sectionNames} from 'lowcoder-design';
 import {BoolControl} from 'comps/controls/boolControl';
 import {styleControl} from 'comps/controls/styleControl';
 import {
-  FieldStyle,
+  ComponentStyle,
   InputLikeStyle,
   InputLikeStyleType,
   LabelStyle,
@@ -83,7 +83,7 @@ const childrenMap = {
   autocompleteIconColor: dropdownControl(autocompleteIconColor, 'blue'),
   componentSize: dropdownControl(componentSize, 'small'),
   valueInItems: booleanExposingStateControl('valueInItems'),
-  field: styleControl(FieldStyle),
+  field: styleControl(ComponentStyle),
 };
 
 const getValidate = (value: any): '' | 'warning' | 'error' | undefined => {
